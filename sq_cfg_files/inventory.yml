@@ -1,0 +1,37 @@
+---
+
+sources:
+- name: UWACO_campus_inventory_source
+  hosts:
+  - url: ssh://10.1.10.66
+  - url: ssh://10.1.10.67
+  - url: ssh://10.1.10.68
+
+- name: EMEA_campus_inventory_source
+  hosts:
+  - url: ssh://10.1.10.61
+
+
+devices:
+- name: cisco_ios_devices
+  transport: ssh
+  ignore-known-hosts: true
+  slow-host: true
+  port: 22
+
+auths:
+- name: cisco
+  username: cisco
+  password: plain:cisco
+
+namespaces:
+- name: UWACO_Campus
+  source: UWACO_campus_inventory_source
+  device: cisco_ios_devices
+  auth: cisco
+
+- name: EMEA_Campus
+  source: EMEA_campus_inventory_source
+  device: cisco_ios_devices
+  auth: cisco
+

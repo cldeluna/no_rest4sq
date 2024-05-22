@@ -10,7 +10,12 @@ This is the [companion repository](https://github.com/cldeluna/no_rest4sq) to
 
    
 
-
+| Module                                           | Use                                               |
+| ------------------------------------------------ | ------------------------------------------------- |
+| [suzieq](https://pypi.org/project/suzieq/)       | Network Observability                             |
+| [netaddr](https://pypi.org/project/netaddr/)     | Obtain MAC Vendor OUI                             |
+| [streamlit](https://pypi.org/project/streamlit/) | Web Framework for the User Interface              |
+| [requests](https://pypi.org/project/requests/)   | Used to send HTTP requests to the SuzieQ REST API |
 
 
 

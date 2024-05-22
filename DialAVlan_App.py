@@ -27,7 +27,7 @@ import dotenv
 import socket
 
 
-def try_sq_rest_call_http(
+def try_sq_rest_call(
     uri_path,
     url_options,
     protocol="http",
@@ -69,7 +69,7 @@ def find_vlans_in_namespace(namespace):
     URI_PATH = "/api/v2/vlan/show"
     URL_OPTIONS = f"namespace={namespace}&view=latest&columns=default"
 
-    sq_api_response_vlan = try_sq_rest_call_http(URI_PATH, URL_OPTIONS)
+    sq_api_response_vlan = try_sq_rest_call(URI_PATH, URL_OPTIONS)
 
     df = pd.DataFrame(sq_api_response_vlan)
     # Drop unsupported Vlans
@@ -97,7 +97,7 @@ def find_vlans_on_switch(switch):
     URI_PATH = "/api/v2/vlan/show"
     URL_OPTIONS = f"hostname={switch}&view=latest&columns=default"
 
-    sq_api_response = try_sq_rest_call_http(URI_PATH, URL_OPTIONS)
+    sq_api_response = try_sq_rest_call(URI_PATH, URL_OPTIONS)
 
     # http://10.1.10.47:8000/api/v2/vlan/show?hostname=indian-ocean-sw01&view=latest&columns=default&state=active&access_token=496157e6e869ef7f3d6ecb24a6f6d847b224ee4f
 
@@ -116,7 +116,7 @@ def find_vlan_on_switch(vlanx, switch):
     URI_PATH = "/api/v2/vlan/show"
     URL_OPTIONS = f"hostname={switch}&view=latest&columns=default&vlan={vlanx}"
 
-    sq_api_response_vlan = try_sq_rest_call_http(URI_PATH, URL_OPTIONS)
+    sq_api_response_vlan = try_sq_rest_call(URI_PATH, URL_OPTIONS)
 
     if sq_api_response_vlan:
         vlan_configured_on_sw = True
@@ -127,7 +127,7 @@ def find_vlan_on_switch(vlanx, switch):
 
     URL_OPTIONS = f"hostname={switch}&view=latest&columns=default&state=active"
 
-    sq_api_response_vlan_allvlans = try_sq_rest_call_http(URI_PATH, URL_OPTIONS)
+    sq_api_response_vlan_allvlans = try_sq_rest_call(URI_PATH, URL_OPTIONS)
 
     # http://10.1.10.47:8000/api/v2/vlan/show?hostname=indian-ocean-sw01&view=latest&columns=default&state=active&access_token=496157e6e869ef7f3d6ecb24a6f6d847b224ee4f
 
@@ -147,7 +147,7 @@ def network_find(ipx, view="latest"):
     URI_PATH = "/api/v2/network/find"
     URL_OPTIONS = f"address={ipx.strip()}&view={view}&columns=default&"
 
-    sq_api_response = try_sq_rest_call_http(URI_PATH, URL_OPTIONS)
+    sq_api_response = try_sq_rest_call(URI_PATH, URL_OPTIONS)
 
     return sq_api_response
 
@@ -531,7 +531,9 @@ def main():
         label = f"Select new vlan for the port"
         check_option = st.form_submit_button(label=label)
 
-        if check_option and st.session_state["dev_info_dict"]["new_vlan"]:
+        if check_option:
+
+
 
             # Load the state data into a dictionary
             dev_info_dict = st.session_state["dev_info_dict"]

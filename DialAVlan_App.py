@@ -420,12 +420,14 @@ def main():
             # Details response
             resp = network_find(dev_ip)
 
-            # resp_all = network_find(dev_ip, view="all")
-            #
-            # all_df = pd.DataFrame(resp_all)
-            # all_df = all_df[all_df["ifname"].str.contains("GigabitEthernet\d\/0\/\d{1,2}")]
-            # all_df['timestamp'] = all_df['timestamp'].apply(epoch_to_ts)
-            # st.write(all_df)
+            # With view="all" we will get the history of where that IP has been.
+            # In a production environment I would do that search against with the MAC and not the IP
+            resp_all = network_find(dev_ip, view="all")
+
+            all_df = pd.DataFrame(resp_all)
+            all_df = all_df[all_df["ifname"].str.contains("GigabitEthernet\d\/0\/\d{1,2}")]
+            all_df['timestamp'] = all_df['timestamp'].apply(epoch_to_ts)
+            st.write(all_df)
 
             # We want the response to be a list of dictionaries
             if resp and type(resp) == list:

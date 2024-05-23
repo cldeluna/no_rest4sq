@@ -391,7 +391,7 @@ def main():
         f"Enter the Fully Qualified DNS Name of the device you want to find and move"
     )
     val = "asus-pc.us.uwaco.net"
-    dev_fqdn = st.text_input("Enter Device FQDN: ", value="www.jpl.nasa.gov")
+    dev_fqdn = st.text_input("Enter Device FQDN: ", value="")
 
     st.markdown("---")
 
@@ -732,6 +732,9 @@ def main():
                             sw_conn, sw, cmd, method="command", cfgmode_bool=False
                         )
                         st.text(output)
+
+                        st.info("Waiting for DHCP and ARP Table Updates")
+                        time.sleep(5)
 
                         # this is only appropriate if DHCP snooping is configured
                         # st.write(f"Checking interface configuration after change")

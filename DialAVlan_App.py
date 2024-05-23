@@ -733,6 +733,11 @@ def main():
                         )
                         st.text(output)
 
+                        # Save changes
+                        st.info(f"Saving Configuration")
+                        output = sw_conn.save_config()
+                        st.text(output)
+
                         st.info("Waiting for DHCP and ARP Table Updates")
                         time.sleep(5)
 
